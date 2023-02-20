@@ -1,0 +1,188 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Dashboard {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="card card-stats">
+            <div class="card-header card-header-warning card-header-icon">
+                <div class="card-icon">
+                    <i class="material-icons">content_copy</i>
+                </div>
+                <p class="card-category">Used Space</p>
+                <h3 class="card-title">49/50
+                    <small>GB</small>
+                </h3>
+            </div>
+            <div class="card-footer">
+                <div class="stats">
+                    <i class="material-icons text-danger">warning</i>
+                    <a href="#pablo">Get More Space...</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="card card-stats">
+            <div class="card-header card-header-success card-header-icon">
+                <div class="card-icon">
+                    <i class="material-icons">store</i>
+                </div>
+                <p class="card-category">Revenue</p>
+                <h3 class="card-title">$34,245</h3>
+            </div>
+            <div class="card-footer">
+                <div class="stats">
+                    <i class="material-icons">date_range</i> Last 24 Hours
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="card card-stats">
+            <div class="card-header card-header-danger card-header-icon">
+                <div class="card-icon">
+                    <i class="material-icons">info_outline</i>
+                </div>
+                <p class="card-category">Fixed Issues</p>
+                <h3 class="card-title">75</h3>
+            </div>
+            <div class="card-footer">
+                <div class="stats">
+                    <i class="material-icons">local_offer</i> Tracked from Github
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="card card-stats">
+            <div class="card-header card-header-info card-header-icon">
+                <div class="card-icon">
+                    <i class="fa fa-twitter"></i>
+                </div>
+                <p class="card-category">Followers</p>
+                <h3 class="card-title">+245</h3>
+            </div>
+            <div class="card-footer">
+                <div class="stats">
+                    <i class="material-icons">update</i> Just Updated
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card card-chart">
+            <div class="card-body">
+                <table id="ourtable2" class="display" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Name</th>
+                            <th>Model Number</th>
+                            <th>Weight</th>
+                            <th>Description</th>
+                            <th>Brand</th>
+                            <th>Category</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+<script>
+    $(document).ready(function() {
+        md.initDashboardPageCharts();
+        
+        // var table = $('#ourtable2').DataTable({
+        //   serverSide: true,
+        //   processing: true,
+        //   paging: true,
+        //   "ajax": {
+        //         "url": "{% url 'iha-list' %}",
+        //         "type": "GET",
+        //         "data": function ( data ) {
+        //             data.page = data.start / data.length + 1;
+        //             delete data.draw;
+        //             data.limit = data.length;
+        //             data.page_size = data.limit;
+        //             delete data.length;
+        //             data.search = data.search.value;
+        //             data.offset = data.start;
+        //             var ordering = data.columns[data.order[0].column].data;
+        //             if(ordering.includes('.')){
+        //                 ordering = ordering.replace('.','__');
+        //             }
+        //             if(data.order[0].dir === 'asc') {
+        //                 data.ordering = ordering;
+        //             }else{
+        //                 data.ordering = "-" + ordering;
+        //             }
+        //             delete data.start;
+        //             return data;
+        //         },
+        //         "dataFilter": function(data){
+        //             var json = jQuery.parseJSON(data);
+        //             json.recordsTotal = json.count;
+        //             json.recordsFiltered = json.count;
+        //             json.data = json.results;
+        //             delete json.results;
+        //             return JSON.stringify(json); // return JSON string
+        //         },
+        //     },
+        //     "columns": [{
+        //             data: "image",
+        //             name: "image",
+        //             render: function(data, type, row) {
+        //                 return (
+        //                     '<img src="' +
+        //                     data +
+        //                     '" width="50px" height="50px" />'
+        //                 );
+        //             }
+        //         },
+        //         {
+        //             data: "name"
+        //         },
+        //         {
+        //             data: "model_number"
+        //         },
+        //         {
+        //             data: "weight"
+        //         },
+        //         {
+        //             data: "description"
+        //         },
+        //         {
+        //             data: "brand.name"
+        //         },
+        //         {
+        //             data: "category",
+        //             name: "category",
+        //             render: function(data, type, row) {
+        //                 return data.map(function(item) {
+        //                     return item.name;
+        //                 });
+        //             }
+        //         },
+        //     ],
+        // });
+
+    });
+</script>
+
+{% endblock javascripts %}
