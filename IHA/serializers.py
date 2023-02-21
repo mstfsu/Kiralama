@@ -15,6 +15,7 @@ class IHASerializer(serializers.ModelSerializer):
     class Meta:
         model = IHA
         fields = "__all__"
+        datatables_always_serialize = ('id',)
 
     def to_representation(self, instance):
         self.fields['brand'] =  BrandSerializer(read_only=True)
