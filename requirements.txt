@@ -1,0 +1,16 @@
+asgiref==3.6.0
+Django==4.1.7
+django-environ==0.9.0
+django-extensions==3.2.1
+django-filter==22.1
+djangorestframework==3.14.0
+djangorestframework-datatables==0.7.0
+environs==9.5.0
+marshmallow==3.19.0
+packaging==23.0
+Pillow==9.4.0
+psycopg2==2.9.5
+PyJWT==2.6.0
+python-dotenv==0.21.1
+pytz==2022.7.1
+sqlparse==0.4.3

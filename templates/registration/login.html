@@ -12,7 +12,7 @@
       <div class="card">
         <div class="card-header card-header-primary">
           <h4 class="card-title">
-            Create Account
+            Login
           </h4>
         </div>
         <div class="card-body">
@@ -22,49 +22,42 @@
           </h6>
           
           <br />
-          <form role="form" action="/">
 
-            <div class="row">
+          <form role="form" method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            {% comment %} <div class="row">
               <div class="col-md-12">
                 <div class="form-group">
                   <label class="bmd-label-floating">Username</label>
-                  <input type="text" class="form-control" placeholder="Username">
+                  <input type="text" class="form-control" required name="username" placeholder="Username">
                 </div>
               </div>
             </div>
 
             <br />
-            <div class="row">
-              <div class="col-md-12">
-                <div class="form-group">
-                  <label class="bmd-label-floating">Email</label>
-                  <input type="email" class="form-control" placeholder="Email">
-                </div>
-              </div>
-            </div>
 
-            <br />
             <div class="row">
               <div class="col-md-12">
                 <div class="form-group">
                   <label class="bmd-label-floating">Password</label>
-                  <input type="password" class="form-control" placeholder="Password">
+                  <input type="password" name="password" required class="form-control" placeholder="Password">
                 </div>
               </div>
-            </div>
+            </div> {% endcomment %}
 
             <br />
-            <button name="register" class="btn btn-primary pull-left">Register</button>
+
+            <button type="submit" name="login" class="btn btn-primary pull-left">Login</button>
 
             &nbsp; &nbsp; 
-            <span class="pull-right">
-              Have an account? <a href="/login.html" class="text-primary">Login</a>
-            </span>
+          <span class="pull-right">
+              Don't have an account? <a href="{% url 'signup' %}" class="text-primary">Create</a>
+            </span> 
 
             <div class="clearfix"></div>
 
           </form>
-
         </div>
       </div>
     </div>

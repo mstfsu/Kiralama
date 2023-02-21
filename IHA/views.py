@@ -3,6 +3,8 @@ from rest_framework import viewsets
 from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework.response import Response
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.permissions import IsAuthenticated
 from .models import *
@@ -23,6 +25,10 @@ class IHAViewSet(viewsets.ModelViewSet):
         if self.request.GET.get('category'):
             queryset = queryset.filter(category__id=self.request.GET.get('category'))
         return queryset
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
     
     # def create(self, validated_data):
     #     """ Create IHA """
@@ -35,12 +41,20 @@ class CategoryViewSet(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend]
     filterset_class = CategoryFilter
 
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
+
 class BrandViewSet(viewsets.ModelViewSet):
     """ ViewSet for crud operations of Brand model """
     queryset = Brand.objects.all()
     serializer_class = BrandSerializer
     filter_backends = [DjangoFilterBackend]
     filterset_class = BrandFilter
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
 
 class DashboardStatics(APIView):
     def get(self, request):
@@ -54,3 +68,7 @@ class DashboardStatics(APIView):
             'total_brand': total_brand
         }
         return Response(response_data, status.HTTP_200_OK)
+    
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)

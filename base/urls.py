@@ -6,6 +6,5 @@ from .views import *
 urlpatterns = [
    path('index', index, name='index'),
    path('', dashboard, name='dashboard'),
-   path('iha/create', create, name='create'),
-   path('accounts/login/', login, name='login'),
-]
+   path('iha/create', create, name='create')
+   ]

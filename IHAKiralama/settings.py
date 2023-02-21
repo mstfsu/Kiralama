@@ -97,6 +97,8 @@ DATABASES = {
         "PORT": env('SQL_PORT'),
     }
 }
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/accounts/login"
 
 REST_FRAMEWORK = {
      'DEFAULT_AUTHENTICATION_CLASSES': [
