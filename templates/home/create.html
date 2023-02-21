@@ -1,0 +1,168 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Dashboard {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Iha Oluşturma</h4>
+            </div>
+            <div class="card-body">
+                <form id="createIhaForm" enctype="multipart/form-data">
+                    <input type="hidden" id="csrf_token" value="{{ csrf_token }}">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="IHA Adı" name="name">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Model Number"
+                                        name="model_number">
+                                </div>
+                                <div class="form-group">
+                                    <select class="category-multiple col-12" name="category[]" multiple="multiple">
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <select class="brand-multiple col-12" name="brand">
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <input type="number" class="form-control" placeholder="Weight" name="weight">
+                                </div>
+                                <div class="custom-file">
+                                    <input type="file" name="image" class="custom-file-input" id="image">
+                                    <label class="custom-file-label" for="image">Choose file</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <textarea rows="10" type="text" style="margin-top: 20px" class="form-control" placeholder="Description"
+                                    name="description"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Kaydet</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+<script>
+    $(".custom-file-input").on("change", function() {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    });
+    $(document).ready(function() {
+        var $crf_token = $('#csrf_token').attr('value');
+        $('#createIhaForm').submit(function(e) { // catch the form's submit event
+            e.preventDefault();
+            var formData = new FormData($(this)[0]);
+            var categoryList = $('.category-multiple').val().map(function(item) {
+                return parseInt(item);
+            });
+            formData.set('category', categoryList);
+            //formData.append('image', $('#image')[0].files[0]);
+            $.ajax({ // create an AJAX call...
+                data: formData, // get the form data
+                type: "POST", // GET or POST
+                url: "{% url 'iha-list' %}",
+                processData: false,
+                contentType: false,
+                enctype: 'multipart/form-data',
+                headers: {
+                    "X-CSRFToken": $crf_token,
+
+                },
+                success: function(response) {
+                    Swal.fire(
+                        'Good job!',
+                        'You clicked the button!',
+                        'success'
+                    )
+                    window.location.href = "/index";
+
+                }
+            });
+            return false;
+        });
+        $('.category-multiple').select2({
+            allowClear: true,
+            placeholder: "Kategori Seçiniz",
+            ajax: {
+                url: "/iha/category/",
+                dataType: 'json',
+                type: "GET",
+                delay: 250,
+                data: function(params) {
+                    return {
+                        name__icontains: params.term
+                    };
+                },
+                error: function(data) {
+                    //can be used to log error
+                    console.log('Error:', data);
+                },
+                processResults: function(data) {
+                    return {
+                        results: $.map(data.results, function(item) {
+                            return {
+                                text: item.name,
+                                id: item.id
+                            }
+                        })
+                    };
+                },
+                cache: true
+            }
+        });
+
+        $('.brand-multiple').select2({
+            allowClear: true,
+            placeholder: "Brand Seçiniz",
+            ajax: {
+                url: "/iha/brand/",
+                dataType: 'json',
+                type: "GET",
+                delay: 250,
+                data: function(params) {
+                    return {
+                        name__icontains: params.term
+                    };
+                },
+                error: function(data) {
+                    //can be used to log error
+                    console.log('Error:', data);
+                },
+                processResults: function(data) {
+                    return {
+                        results: $.map(data.results, function(item) {
+                            return {
+                                text: item.name,
+                                id: item.id
+                            }
+                        })
+                    };
+                },
+                cache: true
+            }
+        });
+    });
+</script>
+
+{% endblock javascripts %}

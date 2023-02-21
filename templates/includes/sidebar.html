@@ -4,20 +4,23 @@
       </div>
       <div class="sidebar-wrapper">
         <ul class="nav">
+          {% with request.resolver_match.url_name as url_name %}
 
-          <li class="nav-item active">
+          <li class="nav-item {% if url_name == 'dashboard' %}active{% endif %}">
             <a class="nav-link" href="/">
               <i class="material-icons">dashboard</i>
               <p>Dashboard</p>
             </a>
           </li>
-          {% comment %} <li class="nav-item {% if 'page-user' in segment %} active {% endif %}">
-            <a class="nav-link" href="/page-user.html">
+          <li class="nav-item {% if url_name == 'index' %}active{% endif %}">
+            <a class="nav-link" href="/index">
               <i class="material-icons">person</i>
-              <p>User Profile</p>
+              <p>IHA</p>
             </a>
           </li>
-          <li class="nav-item {% if 'ui-tables' in segment %} active {% endif %}">
+          {% endwith %}
+
+          {% comment %} <li class="nav-item {% if 'ui-tables' in segment %} active {% endif %}">
             <a class="nav-link" href="/ui-tables.html">
               <i class="material-icons">content_paste</i>
               <p>Table List</p>
@@ -46,7 +49,7 @@
               <i class="material-icons">notifications</i>
               <p>Notifications</p>
             </a>
-          </li> {% endcomment %}
+          </li>  {% endcomment %}
           
           {% comment %} <li class="nav-item ">
             <a class="nav-link" href="/page-rtl-support.html">

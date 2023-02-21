@@ -32,3 +32,4 @@ class IHA(BaseModel):
     class Meta:
         verbose_name = "Iha"
         verbose_name_plural = "Insansiz Hava Araçları"
+        ordering = ["-created_at"]
