@@ -12,6 +12,9 @@ $(document).ready(function() {
         });
         formData.set('category', categoryList);
         //formData.append('image', $('#image')[0].files[0]);
+        if (!$("#createIhaForm").valid()) {
+            return;
+        }
         $.ajax({ // create an AJAX call...
             data: formData, // get the form data
             type: "POST", // GET or POST
@@ -102,5 +105,31 @@ $(document).ready(function() {
             },
             cache: true
         }
+    });
+
+    $("#createIhaForm").validate({
+        errorClass: "input-error-class",
+        validClass: "input-valid-class",
+        rules: {
+            name: {
+                required: true,
+            },
+            model_number: {
+                required: true,
+            },
+            description: {
+                required: true,
+            },
+            category: {
+                required: true,
+            },
+            brand: {
+                required: true,
+            },
+            weight: {
+                required: true,
+            },
+        },
+        debug: true,
     });
 });

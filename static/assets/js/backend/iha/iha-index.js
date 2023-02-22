@@ -25,6 +25,7 @@ $(document).ready(function () {
     //md.initDashboardPageCharts();
     $('.categoryFilter').select2({
         allowClear: true,
+        placeholder: "Filtrelemek için Kategori Seçiniz",
         ajax: {
             url: "/iha/category/",
             dataType: 'json',

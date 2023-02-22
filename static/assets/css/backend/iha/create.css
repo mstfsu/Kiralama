@@ -1,0 +1,15 @@
+
+input.invalid {
+    background-color: #ffdddd;
+}
+
+
+label.input-error-class {
+    color: #ff0000; /* red */
+}
+.input-valid-class {
+    border-style: solid;
+    border-color: green;
+    background-color: white;
+}
+

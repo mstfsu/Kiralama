@@ -36,7 +36,6 @@ def create_brand(request):
 def login(request):
     return render(request, 'home/login.html')
 
-
 def create(request):
     return render(request, 'home/create.html')
 
