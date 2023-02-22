@@ -34,12 +34,6 @@ class IHAViewSet(viewsets.ModelViewSet):
                 category__id=self.request.GET.get('category'))
         return queryset
 
-    # def create(self, validated_data):
-    #     """ Create IHA """
-    #     pass
-       
-        #return Response({}, status.HTTP_200_OK)
-
 
 class CategoryViewSet(viewsets.ModelViewSet):
     """ ViewSet for crud operations of Category model 
@@ -98,7 +92,7 @@ class DashboardStatics(APIView):
             'total_iha': total,
             'total_category': total_category,
             'total_brand': total_brand,
-            'total_user' : total_user
+            'total_user': total_user
         }
         return Response(response_data, status.HTTP_200_OK)
 
