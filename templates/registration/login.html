@@ -1,4 +1,4 @@
-{% extends "layouts/base.html" %}
+{% extends "registration/auth-base.html" %}
 
 {% block title %} Login {% endblock %} 
 
@@ -8,14 +8,14 @@
 {% block content %}
 
   <div class="row">
-    <div class="col-md-5">
+    <div class="col-md-6">
       <div class="card">
         <div class="card-header card-header-primary">
           <h4 class="card-title">
             Login
           </h4>
         </div>
-        <div class="card-body">
+        <div class="card-body text-center">
 
           <h6 class="card-category">
               Add your credentials
@@ -48,10 +48,10 @@
 
             <br />
 
-            <button type="submit" name="login" class="btn btn-primary pull-left">Login</button>
+            <button type="submit" name="login" class="btn btn-primary pull-center">Login</button>
 
             &nbsp; &nbsp; 
-          <span class="pull-right">
+          <span class="pull-center">
               Don't have an account? <a href="{% url 'signup' %}" class="text-primary">Create</a>
             </span> 
 

@@ -5,11 +5,13 @@ class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = "__all__"
+        datatables_always_serialize = ('id',)
 
 class BrandSerializer(serializers.ModelSerializer):
     class Meta:
         model = Brand
         fields = "__all__"
+        datatables_always_serialize = ('id',)
 
 class IHASerializer(serializers.ModelSerializer):
     class Meta:

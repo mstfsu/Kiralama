@@ -18,6 +18,18 @@
               <p>IHA</p>
             </a>
           </li>
+          <li class="nav-item {% if url_name == 'category' %}active{% endif %}">
+            <a class="nav-link" href="/category">
+              <i class="material-icons">category</i>
+              <p>Kategori</p>
+            </a>
+          </li>
+          <li class="nav-item {% if url_name == 'brand' %}active{% endif %}">
+            <a class="nav-link" href="/brand">
+              <i class="material-icons">book</i>
+              <p>Markalar</p>
+            </a>
+          </li>
           {% endwith %}
 
           {% comment %} <li class="nav-item {% if 'ui-tables' in segment %} active {% endif %}">

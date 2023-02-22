@@ -1,10 +1,8 @@
 {% extends "layouts/base.html" %}
-
 {% block title %} Dashboard {% endblock %}
-
 <!-- Specific Page CSS goes HERE  -->
 {% block stylesheets %}{% endblock stylesheets %}
-
+{% load static %}
 {% block content %}
 
 <input type="hidden" id="csrf_token" value="{{ csrf_token }}">
@@ -26,20 +24,61 @@
         </div>
     </div>
 </div>
-<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+<div class="modal fade bd-example-modal-lg" tabindex="-1" id="editModal" role="dialog" aria-labelledby="myLargeModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <form>
-                <div class="row">
-                    <div class="col">
-                        <input type="text" name="name" class="form-control" placeholder="First name">
-                    </div>
-                    <div class="col">
-                        <input type="text" class="form-control" placeholder="Last name">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Iha Güncelleme</h4>
+                        </div>
+                        <div class="card-body">
+                            <form id="editIhaForm" enctype="multipart/form-data">
+                                <input type="hidden" id="csrf_token" value="{{ csrf_token }}">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <input type="hidden" id="editId" name="editId" value="">
+
+                                        <div class="form-group">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" placeholder="IHA Adı" name="name">
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" placeholder="Model Number"
+                                                    name="model_number">
+                                            </div>
+                                            <div class="form-group">
+                                                <select class="category-multiple" name="category[]" multiple="multiple">
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <select class="brand-multiple" name="brand">
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="number" class="form-control" placeholder="Weight" name="weight">
+                                            </div>
+                                            <div class="custom-file">
+                                                <input type="file" name="image" class="custom-file-input" id="image">
+                                                <label class="custom-file-label" for="image">Choose file</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <textarea rows="10" type="text" style="margin-top: 20px" class="form-control" placeholder="Description"
+                                                name="description"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Kaydet</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
 </div>
@@ -57,14 +96,14 @@
 
                     <thead>
                         <tr>
-                            <th>Image</th>
-                            <th>Name</th>
-                            <th>Model Number</th>
-                            <th>Brand</th>
-                            <th>Category</th>
-                            <th>Weight</th>
-                            <th>Description</th>
-                            <th>Actions</th>
+                            <th>Resim</th>
+                            <th>İsim</th>
+                            <th>Model Numarası</th>
+                            <th>Marka</th>
+                            <th>Kategori</th>
+                            <th>Ağırlık</th>
+                            <th>Açıklama</th>
+                            <th>Aksiyonlar</th>
                         </tr>
                     </thead>
                 </table>
@@ -73,165 +112,7 @@
     </div>
 </div>
 {% endblock content %}
-
 <!-- Specific Page JS goes HERE  -->
 {% block javascripts %}
-
-<script>
-    var $crf_token = $('#csrf_token').attr('value');
-
-    function deleteIHA() {
-        var id = $("#deletedId").val();
-        $.ajax({
-            url: '/iha/' + id + '/ ',
-            type: 'DELETE',
-            headers: {
-                "X-CSRFToken": $crf_token
-            },
-            success: function(result) {
-                $('#deleteModal').modal('hide');
-                $('#ourtable2').DataTable().ajax.reload();
-            },
-            error: function(data) {
-                //can be used to log error
-                console.log('Error:', data);
-            },
-        });
-    }
-    $(document).ready(function() {
-        md.initDashboardPageCharts();
-        $('.categoryFilter').on("select2:select", function(e) {
-
-            table.draw();
-        });
-        $('#customer_filter').on("select2:unselect", function(e) {
-            table.draw();
-        });
-        $('.categoryFilter').select2({
-            allowClear: true,
-            ajax: {
-                url: "/iha/category/",
-                dataType: 'json',
-                type: "GET",
-                delay: 250,
-                data: function(params) {
-                    return {
-                        name__icontains: params.term
-                    };
-                },
-                error: function(data) {
-                    //can be used to log error
-                    console.log('Error:', data);
-                },
-                processResults: function(data) {
-                    return {
-                        results: $.map(data.results, function(item) {
-                            return {
-                                text: item.name,
-                                id: item.id
-                            }
-                        })
-                    };
-                },
-                cache: true
-            }
-        });
-
-        $(document).on('click', '.deleteButton', function(event) {
-            event.preventDefault();
-            $("#deletedId").val($(this).attr('data-id'));
-            $('#deleteModal').modal('show');
-        });
-
-        var table = $('#ourtable2').DataTable({
-            serverSide: true,
-            searching: true,
-            processing: true,
-            "ajax": {
-                url: "/iha/?format=datatables",
-                type: "GET",
-                data: function(d) {
-                    d.category = $('.categoryFilter').val();
-                },
-                error: function(data) {
-                    //can be used to log error
-                    console.log('Error:', data);
-                },
-            },
-            "columns": [{
-                    data: "image",
-                    name: "image",
-                    searchable: false,
-                    orderable: false,
-                    render: function(data, type, row) {
-                        return (
-                            '<img src="' +
-                            data +
-                            '" width="100px" height="100px" />'
-                        );
-                    }
-                },
-                {
-                    data: "name",
-                    name: "name",
-                    searchable: true,
-                },
-                {
-                    data: "model_number",
-                    name: "model_number",
-                    searchable: true,
-                    orderable: false,
-
-                },
-                {
-                    data: "brand.name",
-                    name: "brand.name",
-                    searchable: true,
-                    orderable: true,
-                },
-                {
-                    data: "category",
-                    name: "category",
-                    searchable: false,
-                    orderable: false,
-                    render: function(data, type, row) {
-                        return data.map(function(item) {
-                            return item.name;
-                        });
-                    }
-                },
-                {
-                    data: "weight",
-                    name: "weight",
-                    searchable: true,
-                    orderable: true,
-
-                },
-                {
-                    data: "description",
-                    name: "description",
-                    searchable: true,
-                    orderable: true,
-                },
-                {
-                    data: "actions",
-                    name: "actions",
-                    searchable: false,
-                    orderable: false,
-                    render: function(data, type, row) {
-                        return (
-                            '<a href="/iha/' +
-                            row.id +
-                            '/edit" class="btn btn-primary btn-sm">Edit</a> <a href="#" data-id=' +
-                            row.id +
-                            ' class="btn btn-danger btn-sm deleteButton">Delete</a>'
-                        );
-                    }
-                },
-            ],
-        });
-
-    });
-</script>
-
+<script src="{%static 'assets/js/backend/iha/iha-index.js'%}"></script>
 {% endblock javascripts %}

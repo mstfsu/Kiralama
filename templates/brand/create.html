@@ -1,0 +1,39 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Dashboard {% endblock %}
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+{% load static %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Marka Oluşturma</h4>
+            </div>
+            <div class="card-body">
+                <form id="createBrandForm">
+                    <input type="hidden" id="csrf_token" value="{{ csrf_token }}">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Marka Adı" name="name">
+                                </div>
+                                <textarea class="form-control" placeholder="Açıklama" name="description"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Kaydet</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+<script src="{%static 'assets/js/backend/brand/create.js'%}"></script>
+{% endblock javascripts %}

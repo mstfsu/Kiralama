@@ -35,7 +35,7 @@
                 <div class="card-icon">
                     <i class="material-icons">store</i>
                 </div>
-                <p class="card-category">Revenue</p>
+                <p class="card-category">Toplam Kategori Sayısı</p>
                 <h3 class="card-title" id="total_category_count">
                     <div class="spinner-border" role="status">
                         <span class="visually-hidden">Loading...</span>
@@ -55,7 +55,7 @@
                 <div class="card-icon">
                     <i class="material-icons">info_outline</i>
                 </div>
-                <p class="card-category">Fixed Issues</p>
+                <p class="card-category">Toplam Marka Sayısı</p>
                 <h3 class="card-title" id="total_brand_count">
                     <div class="spinner-border" role="status">
                         <span class="visually-hidden">Loading...</span>
@@ -86,7 +86,11 @@
                 $('#total_iha_count').html(result.total_iha);
                 $('#total_category_count').html(result.total_category);
                 $('#total_brand_count').html(result.total_brand);
-            }
+            },
+            error: function(data) {
+                //can be used to log error
+                console.log('Error:', data);
+            },
         });
 
     });

@@ -1,10 +1,25 @@
 from django.db import models
+from django.utils.text import slugify
 from base.models import BaseModel
+
 # Create your models here.
 
 class Category(BaseModel):
     name = models.TextField()
     slug = models.SlugField(unique=True, max_length=500, default="")
+
+    def __str__(self):
+        return self.name
+    
+    class Meta:
+        verbose_name = "Kategori"
+        verbose_name_plural = "Kategoriler"
+        ordering = ["-created_at"]
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(Category, self).save(*args, **kwargs)
+        
 
 class Brand(BaseModel):
     name = models.CharField(max_length=100, verbose_name="Marka Adı")
@@ -16,6 +31,7 @@ class Brand(BaseModel):
     class Meta:
         verbose_name = "Marka"
         verbose_name_plural = "Markalar"
+        ordering = ["-created_at"]
 
 class IHA(BaseModel):
     name = models.CharField(max_length=100, verbose_name="İHA Adı")

@@ -1,0 +1,84 @@
+{% extends "layouts/base.html" %}
+{% block title %} Dashboard {% endblock %}
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+{% load static %}
+{% block content %}
+
+<input type="hidden" id="csrf_token" value="{{ csrf_token }}">
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Kategoriyi silmek istiyor musunuz?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="deletedId" name="deletedId" value="">
+                <button type="button" onclick="deleteCategory()" class="btn btn-danger">Sil</button>
+                <button type="button" class="btn btn-success" data-dismiss="modal">İptal</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade bd-example-modal-lg" tabindex="-1" id="editModal" role="dialog" aria-labelledby="myLargeModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Kategori Güncelleme</h4>
+                        </div>
+                        <div class="card-body">
+                            <form id="editCategoryForm" enctype="multipart/form-data">
+                                <input type="hidden" id="csrf_token" value="{{ csrf_token }}">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <input type="hidden" id="editId" name="editId" value="">
+
+                                        <div class="form-group">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" placeholder="Kategori Adı" name="name">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Kaydet</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card card-chart">
+            <div class="card-header row">
+                <a href="/category/create" class="btn btn-success btn-sm ml-auto">Yeni Kategori Ekle</a>
+            </div>
+            <div class="card-body">
+                <table id="ourtable2" class="table table-striped table-bordered" style="width:100%" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Slug</th>
+                            <th>Aksiyonlar</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+<script src="{%static 'assets/js/backend/category/category-index.js'%}"></script>
+{% endblock javascripts %}
