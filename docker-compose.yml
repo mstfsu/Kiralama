@@ -2,7 +2,6 @@ version: '3.7'
 services:
   nginx:
     build: ./nginx
-    shm_size: 1GB
     container_name: nginx
     volumes:
       - static_volume:/home/app/backend/static
@@ -13,19 +12,17 @@ services:
   backend:
     container_name: backend
     build: .
-    shm_size: 1GB
     restart: always
     env_file: ./.env.example
     ports:
       -  8000:8000
-    command: gunicorn --workers=81 IHAKiralama.wsgi:application --bind 0.0.0.0:8000
+    command: gunicorn --workers=1 IHAKiralama.wsgi:application --bind 0.0.0.0:8000
     volumes:
      - ./:/home/app/backend
      - static_volume:/home/app/backend/static
   postgres_db:
     image: postgres:13.0-alpine
     container_name: postgres_db
-    shm_size: 1GB
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     environment:
