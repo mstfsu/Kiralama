@@ -1,17 +1,5 @@
 version: '3.7'
 services:
-  backend:
-    container_name: backend
-    build: .
-    restart: always
-    env_file: ./.env.example
-    ports:
-      -  8000:8000
-    #command: python manage.py runserver 0.0.0.0:8000
-    command: gunicorn --workers=81 IHAKiralama.wsgi:application --bind 0.0.0.0:8000
-    volumes:
-     - ./:/home/app/backend
-     - ./static:/home/app/backend/static
   nginx:
     build: ./nginx
     shm_size: 1GB
@@ -22,17 +10,28 @@ services:
       - 80:80
     depends_on:
       - backend
+  backend:
+    container_name: backend
+    build: .
+    shm_size: 1GB
+    restart: always
+    env_file: ./.env.example
+    ports:
+      -  8000:8000
+    command: gunicorn --workers=81 IHAKiralama.wsgi:application --bind 0.0.0.0:8000
+    volumes:
+     - ./:/home/app/backend
+     - static_volume:/home/app/backend/static
   postgres_db:
     image: postgres:13.0-alpine
     container_name: postgres_db
+    shm_size: 1GB
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     environment:
       - POSTGRES_USER=iha
       - POSTGRES_PASSWORD=iha
       - POSTGRES_DB=iha_dev
-
 volumes:
-  postgres_data:
   static_volume:
-
+  postgres_data:
