@@ -13,12 +13,14 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-    - name: Deploy iha
-      uses: appleboy/ssh-action@master
+    - name: Open Web Client Directory
+      working-directory: ./
       run: |
         ls -la
+    - name: Deploy iha
+      uses: appleboy/ssh-action@master
       with:
           host: ${{ secrets.HOST_DNS }}
           key: ${{ secrets.EC2_SSH_KEY }}
           username: ${{ secrets.USERNAME }}
-          script: 'chmod +x ./server_deploy.sh && ./server_deploy.sh'
+          script: 'cd /home/ && chmod +x ./server_deploy.sh && ./server_deploy.sh'
