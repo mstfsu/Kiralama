@@ -14,7 +14,7 @@ jobs:
     - name: Deploy iha
       uses: appleboy/ssh-action@master
       with:
-          host: ${{ secrets.EC2_SSH_KEY }}
-          key: ${{ secrets.HOST_DNS }}
+          host: ${{ secrets.HOST_DNS }}
+          key: ${{ secrets.EC2_SSH_KEY }}
           username: ${{ secrets.USERNAME }}
           script: 'cd /home/IHAKiralama/ && chmod +x ./server_deploy.sh && ./server_deploy.sh'

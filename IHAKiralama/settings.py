@@ -33,7 +33,7 @@ DEBUG = int(os.environ.get("DEBUG",0))
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0', 'localhost:8000', '127.0.0.1', 'localhost', 'backend', 'backend:8000', '54.93.109.214']
+ALLOWED_HOSTS = ['0.0.0.0', 'localhost:8000', '127.0.0.1', 'localhost', 'backend', 'backend:8000', '18.195.60.113']
 
 # Application definition
 
