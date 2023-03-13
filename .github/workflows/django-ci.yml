@@ -11,8 +11,7 @@ jobs:
   Deploy-luploq:
     runs-on: ubuntu-latest
     steps:
-    - run: |
-      ls -a
+    - run: ls -a
     - name: Deploy iha
       uses: appleboy/ssh-action@master
       with:
