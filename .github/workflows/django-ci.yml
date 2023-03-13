@@ -11,6 +11,10 @@ jobs:
   Deploy-luploq:
     runs-on: ubuntu-latest
     steps:
+    - name: Open Web Client Directory
+      working-directory: ./
+      run: |
+        ls -la
     - name: Checkout
       uses: actions/checkout@v2
     - name: Deploy iha
