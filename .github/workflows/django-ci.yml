@@ -11,7 +11,6 @@ jobs:
   Deploy-luploq:
     runs-on: ubuntu-latest
     steps:
-    - run: $github_workspace
     - name: Checkout
       uses: actions/checkout@v2
     - name: Deploy iha
@@ -20,4 +19,4 @@ jobs:
           host: ${{ secrets.HOST_DNS }}
           key: ${{ secrets.EC2_SSH_KEY }}
           username: ${{ secrets.USERNAME }}
-          script: 'chmod +x ./server_deploy.sh && ./server_deploy.sh'
+          script: 'cd /home/IHAKiralama/ && chmod +x ./server_deploy.sh && ./server_deploy.sh'
