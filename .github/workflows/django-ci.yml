@@ -13,12 +13,10 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-    - name: Open Web Client Directory
-      working-directory: ./
-      run: |
-        ls -la
     - name: Deploy iha
       uses: appleboy/ssh-action@master
+      run: |
+        ls -la
       with:
           host: ${{ secrets.HOST_DNS }}
           key: ${{ secrets.EC2_SSH_KEY }}
