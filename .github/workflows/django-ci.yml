@@ -1,0 +1,20 @@
+name: Django CI
+
+on:
+  push:
+  
+    branches: [ try ]
+  pull_request:
+    branches: [ try ]
+
+jobs:
+  Deploy-luploq:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Deploy iha
+      uses: appleboy/ssh-action@master
+      with:
+          host: ${{ secrets.EC2_SSH_KEY }}
+          key: ${{ secrets.HOST_DNS }}
+          username: ${{ secrets.USERNAME }}
+          script: 'cd /home/IHAKiralama/ && chmod +x ./server_deploy.sh && ./server_deploy.sh'
