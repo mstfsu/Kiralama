@@ -11,9 +11,8 @@ jobs:
   Deploy-luploq:
     runs-on: ubuntu-latest
     steps:
-    - run: ls -a
     - name: Deploy iha
-      uses: appleboy/ssh-action@master
+      uses: appleboy/ssh-action@try
       with:
           host: ${{ secrets.HOST_DNS }}
           key: ${{ secrets.EC2_SSH_KEY }}
