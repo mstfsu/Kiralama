@@ -11,6 +11,7 @@ jobs:
   Deploy-luploq:
     runs-on: ubuntu-latest
     steps:
+    - run: echo "this is ${{ github.repository }}" 
     - name: Deploy iha
       uses: appleboy/ssh-action@master
       with:
