@@ -17,4 +17,4 @@ jobs:
           host: ${{ secrets.HOST_DNS }}
           key: ${{ secrets.EC2_SSH_KEY }}
           username: ${{ secrets.USERNAME }}
-          script: 'cd /mstfsu/IHAKiralama/ && chmod +x ./server_deploy.sh && ./server_deploy.sh'
+          script: 'cd /public/IHAKiralama/ && chmod +x ./server_deploy.sh && ./server_deploy.sh'
