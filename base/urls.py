@@ -11,4 +11,5 @@ urlpatterns = [
     path('category/create', create_category, name='create_category'),
     path('brand', brand, name='brand'),
     path('brand/create', create_brand, name='create_brand'),
+    path('model', create_brand, name='model'),#submodule try
 ]
