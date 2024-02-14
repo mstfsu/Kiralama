@@ -1,4 +1,4 @@
-# IHAKiralama
+# Kiralama
 #Django = 4.1.7
 #postgresql = 12.14
 
